@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StudyFlow</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <h1>StudyFlow</h1>
+    <div class="nav">
+      <button id="prev" aria-label="Période précédente">‹</button>
+      <button id="today">Aujourd'hui</button>
+      <button id="next" aria-label="Période suivante">›</button>
+      <strong id="title" aria-live="polite"></strong>
+    </div>
+    <div class="views">
+      <button data-view="day">Jour</button>
+      <button data-view="week">Semaine</button>
+      <button data-view="month">Mois</button>
+    </div>
+    <button id="add" class="primary">Nouvelle activité</button>
+  </header>
+
+  <div id="empty" class="empty" hidden>
+    <p>Ton agenda est vide. Ajoute une activité ou teste l'interface avec des données d'exemple.</p>
+    <button id="sample">Charger des exemples</button>
+  </div>
+
+  <main id="calendar"></main>
+
+  <dialog id="dlg">
+    <form id="form" novalidate>
+      <h2 id="dlg-title">Nouvelle activité</h2>
+      <input type="hidden" name="id">
+      <label>Titre <input name="title" autocomplete="off"></label>
+      <label>Matière <input name="subject" autocomplete="off"></label>
+      <div class="row">
+        <label>Type
+          <select name="type">
+            <option value="devoir">Devoir</option>
+            <option value="examen">Examen</option>
+            <option value="revision">Révision</option>
+            <option value="projet">Projet</option>
+          </select>
+        </label>
+        <label>Priorité
+          <select name="priority">
+            <option value="low">Basse</option>
+            <option value="medium" selected>Moyenne</option>
+            <option value="high">Haute</option>
+          </select>
+        </label>
+      </div>
+      <div class="row">
+        <label>Date <input type="date" name="date"></label>
+        <label>Heure (facultatif) <input type="time" name="time"></label>
+      </div>
+      <div class="row">
+        <label>Durée en minutes (facultatif) <input type="number" name="duration" min="5" step="5"></label>
+        <label>Statut
+          <select name="status">
+            <option value="pending">En attente</option>
+            <option value="done">Terminée</option>
+          </select>
+        </label>
+      </div>
+      <label>Description <textarea name="description" rows="3"></textarea></label>
+      <p id="error" class="error" role="alert" hidden></p>
+      <div class="actions">
+        <button type="button" id="cancel">Annuler</button>
+        <button type="submit" class="primary">Enregistrer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="calendar.js"></script>
+</body>
+
+</html>
