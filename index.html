@@ -1,83 +1,79 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
   <title>StudyFlow</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/agenda.css">
+  <link rel="stylesheet" href="css/tasks.css">
+  <link rel="stylesheet" href="css/revisions.css">
+  <link rel="stylesheet" href="css/timer.css">
+  <link rel="stylesheet" href="css/stats.css">
+  <link rel="stylesheet" href="css/settings.css">
+  <link rel="stylesheet" href="css/importer.css">
+  <link rel="stylesheet" href="css/reminders.css">
+  <link rel="stylesheet" href="css/motivation.css">
 </head>
-
 <body>
-  <header class="topbar">
-    <h1>StudyFlow</h1>
-    <div class="nav">
-      <button id="prev" aria-label="Période précédente">‹</button>
-      <button id="today">Aujourd'hui</button>
-      <button id="next" aria-label="Période suivante">›</button>
-      <strong id="title" aria-live="polite"></strong>
-    </div>
-    <div class="views">
-      <button data-view="day">Jour</button>
-      <button data-view="week">Semaine</button>
-      <button data-view="month">Mois</button>
-    </div>
-    <button id="add" class="primary">Nouvelle activité</button>
-  </header>
+  <div class="app-shell">
 
-  <div id="empty" class="empty" hidden>
-    <p>Ton agenda est vide. Ajoute une activité ou teste l'interface avec des données d'exemple.</p>
-    <button id="sample">Charger des exemples</button>
+    <!-- Barre latérale étroite -->
+    <aside class="rail" aria-label="Barre latérale">
+      <div class="rail-avatar" aria-hidden="true">S</div>
+      <a class="rail-settings" href="#/settings" aria-label="Réglages" title="Réglages">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </a>
+    </aside>
+
+    <!-- Barre supérieure avec recherche -->
+    <header class="topbar">
+      <div class="search">
+        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search-input" type="search" placeholder="Rechercher…" aria-label="Rechercher">
+        <kbd class="search-kbd" aria-hidden="true">Ctrl K</kbd>
+      </div>
+    </header>
+
+    <!-- Zone centrale : les vues sont injectées ici -->
+    <main id="views" class="views"></main>
+
+    <!-- Barre de navigation flottante du bas -->
+    <nav class="dock" aria-label="Navigation principale"></nav>
+
+    <!-- Notifications -->
+    <div id="toasts" class="toasts" aria-live="polite"></div>
+
   </div>
 
-  <main id="calendar"></main>
+  <!-- Scripts dans l'ordre du contrat -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/dates.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/activities.js"></script>
+  <script src="js/timetable.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/planner.js"></script>
+  <script src="js/sessions.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/forms.js"></script>
+  <script src="js/reminders.js"></script>
+  <script src="js/motivation.js"></script>
+  <script src="js/ai-reader.js"></script>
+  <script src="js/importer.js"></script>
+  <script src="js/importer-ui.js"></script>
+  <script src="js/views/home.js"></script>
+  <script src="js/views/agenda.js"></script>
+  <script src="js/views/tasks.js"></script>
+  <script src="js/views/revisions.js"></script>
+  <script src="js/views/timer.js"></script>
+  <script src="js/views/stats.js"></script>
+  <script src="js/views/settings.js"></script>
 
-  <dialog id="dlg">
-    <form id="form" novalidate>
-      <h2 id="dlg-title">Nouvelle activité</h2>
-      <input type="hidden" name="id">
-      <label>Titre <input name="title" autocomplete="off"></label>
-      <label>Matière <input name="subject" autocomplete="off"></label>
-      <div class="row">
-        <label>Type
-          <select name="type">
-            <option value="devoir">Devoir</option>
-            <option value="examen">Examen</option>
-            <option value="revision">Révision</option>
-            <option value="projet">Projet</option>
-          </select>
-        </label>
-        <label>Priorité
-          <select name="priority">
-            <option value="low">Basse</option>
-            <option value="medium" selected>Moyenne</option>
-            <option value="high">Haute</option>
-          </select>
-        </label>
-      </div>
-      <div class="row">
-        <label>Date <input type="date" name="date"></label>
-        <label>Heure (facultatif) <input type="time" name="time"></label>
-      </div>
-      <div class="row">
-        <label>Durée en minutes (facultatif) <input type="number" name="duration" min="5" step="5"></label>
-        <label>Statut
-          <select name="status">
-            <option value="pending">En attente</option>
-            <option value="done">Terminée</option>
-          </select>
-        </label>
-      </div>
-      <label>Description <textarea name="description" rows="3"></textarea></label>
-      <p id="error" class="error" role="alert" hidden></p>
-      <div class="actions">
-        <button type="button" id="cancel">Annuler</button>
-        <button type="submit" class="primary">Enregistrer</button>
-      </div>
-    </form>
-  </dialog>
-
-  <script src="calendar.js"></script>
+  <script>SF.app.start();</script>
 </body>
-
 </html>
