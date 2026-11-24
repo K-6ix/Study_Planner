@@ -242,11 +242,13 @@
       if (ago > 10 && i % 5 === 3) continue;  // jour sans session
       var date = D.addDays(today, -ago);
       var nbSessions = ago === 0 ? 2 : 1 + (i % 3); // aujourd'hui : 2 sessions ; sinon 1 à 3
+      var longDay = ago > 0 && i % 7 === 4;          // quelques journées « à fond » (plus de 3 h) : teinte la plus foncée
+      if (longDay) nbSessions = 3;
       for (var s = 0; s < nbSessions; s++) {
         SF.sessions.add({
           date: date,
           subject: subjects[(i + s) % subjects.length],
-          minutes: ago === 0 ? [40, 28][s] : [25, 30, 45, 50, 60, 90][((i + s) % 6)],
+          minutes: ago === 0 ? [40, 28][s] : (longDay ? [90, 60, 45][s] : [25, 30, 45, 50, 60, 90][((i + s) % 6)]),
           note: 'Révision ' + (s + 1),
           source: 'manual'
         });
@@ -320,6 +322,18 @@
       { weekday: 3, subject: 'Physique',  startTime: '10:15', endTime: '12:00', room: 'B04', teacher: 'Mme Leroy' },
       { weekday: 4, subject: 'Anglais',   startTime: '14:00', endTime: '15:30', room: 'C21', teacher: 'Ms Carter' }
     ]);
+
+    // Un objectif de démonstration (page Révisions) : 3 séances de maths sur les 2 prochaines semaines.
+    if (SF.planner && SF.planner.addGoal) {
+      SF.planner.addGoal({
+        title: '3 séances de maths',
+        subject: 'Maths',
+        targetType: 'sessions',
+        targetValue: 3,
+        startDate: today,
+        endDate: D.addDays(today, 14)
+      });
+    }
 
     SF.events.emit('data:changed', { collection: 'sessions' });
     SF.events.emit('data:changed', { collection: 'activities' });
